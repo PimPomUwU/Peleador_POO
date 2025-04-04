@@ -32,7 +32,9 @@ public class Main {
     }
 
     public static Jugador menu(Peleador ayano, Peleador maxiimo, Peleador jlukep, Peleador pimpom, Peleador jugador) {
+
         int opcion;
+        String ya_fue_elegido = "Este personaje ya ha sido elegido, escoge otro...";
 
         do {
             opcion = Integer.parseInt(JOptionPane.showInputDialog("LUCHADORES: " +
@@ -44,7 +46,7 @@ public class Main {
             switch (opcion) {
                 case (1):
                     if (ayano.isElegido()) {
-                        JOptionPane.showMessageDialog(null, "Este personaje ya ha sido elegido, escoge otro...");
+                        JOptionPane.showMessageDialog(null, ya_fue_elegido);
                         opcion = 0;
                         break;
                     }
@@ -55,7 +57,7 @@ public class Main {
                     break;
                 case (2):
                     if (maxiimo.isElegido()) {
-                        JOptionPane.showMessageDialog(null, "Este personaje ya ha sido elegido, escoge otro...");
+                        JOptionPane.showMessageDialog(null, ya_fue_elegido);
                         opcion = 0;
                         break;
                     }
@@ -66,7 +68,7 @@ public class Main {
                     break;
                 case (3):
                     if (jlukep.isElegido()) {
-                        JOptionPane.showMessageDialog(null, "Este personaje ya ha sido elegido, escoge otro...");
+                        JOptionPane.showMessageDialog(null, ya_fue_elegido);
                         opcion = 0;
                         break;
                     }
@@ -77,7 +79,7 @@ public class Main {
                     break;
                 case (4):
                     if (pimpom.isElegido()) {
-                        JOptionPane.showMessageDialog(null, "Este personaje ya ha sido elegido, escoge otro...");
+                        JOptionPane.showMessageDialog(null, ya_fue_elegido);
                         opcion = 0;
                         break;
                     }
@@ -89,14 +91,14 @@ public class Main {
 
 
                 case (5):
-                    if (jugador.getNombre() == "Crear peleador") {
+                    if (jugador.getNombre().equals("Crear peleador")) {
                         Jugador personaje = jugador.asignarJugador(jugador);
                         opcion = crear_jugador(personaje);
                         if (opcion == 0) break;
                         return personaje;
 
                     } else if (jugador.isElegido()) {
-                        JOptionPane.showMessageDialog(null, "Este personaje ya ha sido elegido, escoge otro...");
+                        JOptionPane.showMessageDialog(null, ya_fue_elegido);
                         opcion = 0;
                         break;
                     }
@@ -112,7 +114,7 @@ public class Main {
                     JOptionPane.showMessageDialog(null, "Opcion no existente");
                     break;
             }
-        } while (opcion == 0 && opcion != 9);
+        } while (opcion == 0);
         return menu(ayano, maxiimo, jlukep, pimpom, jugador);
     }
 
@@ -131,11 +133,6 @@ public class Main {
                 if (!p1.isNoqueado() && !p1.IsContraatacar()&&!p1.isReflejar()) {
                     p1.mostrarAcciones(p2);
 
-                } else if (p1.isNoqueado()) {
-                    JOptionPane.showMessageDialog(null, p1.getNombre() + " esta noqueado!");
-                    p1.setNoqueado(false);
-                } else  if (p1.isReflejar()){
-                    p1.listarHabilidades(0, p2);
                 } else {
                     p1.listarHabilidades(0, p2);
                 }
@@ -152,13 +149,8 @@ public class Main {
                     if (p2.getTp() < 10) p2.setTp(p2.getTp() + 1);
                     if (p2.getMp() < 10) p2.setMp(p2.getMp() + 1);
 
-                } else if (p2.isNoqueado()) {
-                    JOptionPane.showMessageDialog(null, p2.getNombre() + " esta noqueado!");
-                    p2.setNoqueado(false);
-                }  else if (p2.isReflejar()){
-                    p2.listarHabilidades(0, p2);
-                } else {
-                    p2.listarHabilidades(0, p2);
+                } else  {
+                    p2.listarHabilidades(0, p1);
                 }
             }
             getVida_pelea(p1, p2);
@@ -177,12 +169,7 @@ public class Main {
                 if (!p1.isNoqueado() && !p1.IsContraatacar()&&!p1.isReflejar()) {
                     p1.mostrarAcciones(p2);
 
-                } else if (p1.isNoqueado()) {
-                    JOptionPane.showMessageDialog(null, p1.getNombre() + " esta noqueado!");
-                    p1.setNoqueado(false);
-                } else if (p1.isReflejar()){
-                    p1.listarHabilidades(0, p2);
-                } else {
+                } else  {
                     p1.listarHabilidades(0, p2);
                 }
             }
@@ -195,13 +182,8 @@ public class Main {
                 if (!p2.isNoqueado() && !p2.IsContraatacar()&&!p2.isReflejar()) {
                     p2.mostrarAcciones(p1);
 
-                } else if (p2.isNoqueado()) {
-                    JOptionPane.showMessageDialog(null, p2.getNombre() + " esta noqueado!");
-                    p2.setNoqueado(false);
-                } else if (p2.isReflejar()){
-                    p2.listarHabilidades(0, p2);
-                } else {
-                    p2.listarHabilidades(0, p2);
+                }else {
+                    p2.listarHabilidades(0, p1);
                 }
             }
             getVida_pelea(p1, p2);

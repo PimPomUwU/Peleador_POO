@@ -345,21 +345,26 @@ public class Jugador extends Peleador {
         String eleccion;
         double danio;
 
-        if (this.IsContraatacar()) {
+        if (this.isNoqueado()) {
+            JOptionPane.showMessageDialog(null, this.getNombre() + " esta noqueado!");
+            this.setNoqueado(false);
+            eleccion = "boolean";
+
+        } else if (this.IsContraatacar()) {
             danio = (this.getVida_temp() - this.getVida()) * 2;
             this.setContraatacar(false);
             mensajeAtaque(enemigo, danio);
-            return 0;
+            eleccion = "boolean";
 
-        }
-        if (this.isReflejar()) {
+        } else if (this.isReflejar()) {
             danio = (this.getVida_temp() - this.getVida()) + this.getDefensa();
             this.setReflejar(false);
             mensajeAtaque(enemigo, danio);
-            return 0;
+            eleccion = "boolean";
 
+        } else {
+            eleccion = this.getHabilidades().get(opcion);
         }
-        eleccion = this.getHabilidades().get(opcion);
 
         if (getDefensa() != getCons_defensa()) resetDefensa(getCons_defensa(), getCons_defensa_magica());
         double defensa;
@@ -410,14 +415,12 @@ public class Jugador extends Peleador {
                 break;
             case "Contraatacar":
                 if (this.getTp() >= 6) {
-                    if (!this.IsContraatacar()) {
                         this.setContraatacar(true);
                         this.contraatacar(this.getNombre());
                         this.setVida_temp(this.getVida());
                         // this.setPuntos(-this.getPuntos() + opcion);
                         this.setTp(this.getTp() - 5);
                         System.out.println("Contraataque");
-                    }
                 } else {
                     JOptionPane.showMessageDialog(null, "¡Necesitas 6TP PARA USAR: CONTRAATACAR!");
                     opcion = 7;
@@ -447,7 +450,9 @@ public class Jugador extends Peleador {
                     opcion = 7;
                 }
                 break;
-            default:
+            case "boolean":
+                return 0;
+                default:
                 JOptionPane.showMessageDialog(null, "Opcion inválida: " + opcion);
                 opcion = 7;
                 break;
