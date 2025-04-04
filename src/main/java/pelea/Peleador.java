@@ -184,9 +184,6 @@ public class Peleador implements Luchador, Caballero, Mago, Arquero {
         this.defensa_magica = defensa_magica;
     }
 
-    public void setmp(float mp) {
-        this.mp = mp;
-    }
 
     public void setCons_ataque(float cons_ataque) {
         this.cons_ataque = cons_ataque;
